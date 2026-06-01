@@ -117,35 +117,36 @@ The app should be available at `http://localhost:5173`.
 
 ## Troubleshooting
 
-### `DATABASE_URL is required`
+#### `DATABASE_URL is required`
 Make sure you created `backend/.env` and added a valid `DATABASE_URL`.
 
-### `Access denied for user 'root'`
+#### `Access denied for user 'root'`
 Your MySQL password in `DATABASE_URL` is incorrect. Double-check the password in:
 ```
 DATABASE_URL=mysql://root:your_mysql_password@localhost:3306/backlog_db
 ```
 
-### `Unknown database 'backlog_db'`
+#### `Unknown database 'backlog_db'`
 The schema hasn't been loaded. Run the database setup again:
 ```bash
 mysql -u root -p < schema.sql
 ```
 
-### Port already in use
+#### Port already in use
 If port `3000` is taken, set a different port in `backend/.env`:
 ```
 PORT=3001
 ```
-Open that URL in your browser.
 
 ## Run Tests
 
-Pre-setup: MySQL running, .env set up, node.js installed
+The project includes end-to-end tests using [Playwright](https://playwright.dev/) that cover adding to backlog, marking as watched, removing from backlog, and backlog recommendations.
 
-In terminal run:
+Before running, make sure MySQL is running and `backend/.env` is configured. The script handles starting and stopping the backend and frontend automatically.
 
-#### 'bash scripts/e2e-tests.sh'
+```bash
+bash scripts/e2e-tests.sh
+```
 
 ## Team
 
