@@ -55,16 +55,20 @@ DATABASE_URL=
 TMDB_API_KEY=
 ACCESS_TOKEN_SECRET=
 REFRESH_TOKEN_SECRET=
+PORT=3000
+NODE_ENV=development
 ```
 
 Refer to the `.env.example` file to see this pattern as well.
 
-| Variable | Required |
-|----------|----------|
-| `DATABASE_URL` | Yes | 
-| `TMDB_API_KEY` | Yes |
-| `ACCESS_TOKEN_SECRET` | Optional |
-| `REFRESH_TOKEN_SECRET` | Optional |
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `DATABASE_URL` | Yes | MySQL connection string |
+| `TMDB_API_KEY` | Yes | API key from TMDB |
+| `ACCESS_TOKEN_SECRET` | Optional | JWT access signing secret |
+| `REFRESH_TOKEN_SECRET` | Optional | JWT refresh signing secret |
+| `PORT` | Optional | Backend server port (default `3000`) |
+| `NODE_ENV` | Optional | Environment mode (default `development`) |
 
 #### Database URL
 This is the MySQL connection string that actually links the app to the database. For a local install, the typical format is
@@ -75,9 +79,8 @@ DATABASE_URL=mysql://root:yourpassword@localhost:3306/backlog_db
 #### JWT Secret Keys (Optional)
 For testing purposes, you may want to sign your own JSON web tokens. For that, you need secret access token and refresh token keys.
 
-In terminal, run the following two commands:
-- `node`
-- `require('crypto').randomBytes(64).toString('hex')`
+In terminal, run the following commands:
+- `node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"`
 
 This gives you a random 64-byte integer, which you can use to sign your JWT tokens. Run the pair of commands twice to get ACCESS_TOKEN_SECRET and REFRESH_TOKEN_SECRET, then paste those values into your .env file.
 
@@ -97,7 +100,7 @@ Replace your_tmdb_api_key_here in the .env file with your actual API Key.
 ### Start the Backend
 
 Run the following commands in your terminal:
-```
+```bash
 cd backend
 npm install
 npm run devStart
@@ -105,14 +108,37 @@ npm run devStart
 
 ### Start the Frontend
 
-Run the following commands in your terminal:
-```
+Open a second terminal window and run:
+```bash
 cd frontend
 npm install
 npm run dev
 ```
 
 The app should be available at `http://localhost:5173`.
+
+## Troubleshooting
+
+### `DATABASE_URL is required`
+Make sure you created `backend/.env` and added a valid `DATABASE_URL`.
+
+### `Access denied for user 'root'`
+Your MySQL password in `DATABASE_URL` is incorrect. Double-check the password in:
+```
+DATABASE_URL=mysql://root:your_mysql_password@localhost:3306/backlog_db
+```
+
+### `Unknown database 'backlog_db'`
+The schema hasn't been loaded. Run the database setup again:
+```bash
+mysql -u root -p < schema.sql
+```
+
+### Port already in use
+If port `3000` is taken, set a different port in `backend/.env`:
+```
+PORT=3001
+```
 
 ## Team
 
