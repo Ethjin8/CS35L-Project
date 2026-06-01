@@ -137,6 +137,15 @@ If port `3000` is taken, set a different port in `backend/.env`:
 ```
 PORT=3001
 ```
+Open that URL in your browser.
+
+## Run Tests
+
+Pre-setup: MySQL running, .env set up, node.js installed
+
+In terminal run:
+
+#### 'bash scripts/e2e-tests.sh'
 
 ## Team
 
