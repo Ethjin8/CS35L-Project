@@ -63,8 +63,8 @@ Refer to the `.env.example` file to see this pattern as well.
 |----------|----------|-------------|
 | `DATABASE_URL` | Yes | MySQL connection string |
 | `TMDB_API_KEY` | Yes | API key from TMDB |
-| `ACCESS_TOKEN_SECRET` | Optional | JWT access signing secret |
-| `REFRESH_TOKEN_SECRET` | Optional | JWT refresh signing secret |
+| `ACCESS_TOKEN_SECRET` | Yes | JWT access signing secret |
+| `REFRESH_TOKEN_SECRET` | Yes | JWT refresh signing secret |
 | `PORT` | Optional | Backend server port (default `3000`) |
 | `NODE_ENV` | Optional | Environment mode (default `development`) |
 
@@ -74,8 +74,8 @@ This is the MySQL connection string that actually links the app to the database.
 DATABASE_URL=mysql://root:yourpassword@localhost:3306/backlog_db
 ```
 
-#### JWT Secret Keys (Optional)
-For testing purposes, you may want to sign your own JSON web tokens. For that, you need secret access token and refresh token keys.
+#### JWT Secret Keys
+These are used to sign and verify JSON web tokens for authentication.
 
 In terminal, run the following commands:
 - `node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"`
