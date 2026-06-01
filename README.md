@@ -77,6 +77,8 @@ Open that URL in your browser.
 
 ## Run Tests
 
-in terminal run:
+Pre-setup: MySQL running, .env set up, node.js installed
 
-#### 'bash scripts/e2e-test.sh'
+In terminal run:
+
+#### 'bash scripts/e2e-tests.sh'
