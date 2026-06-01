@@ -27,35 +27,18 @@ export default function Home() {
   const [backlogItems, setBacklogItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  //Gets the streaming service selected by the user from profile,
-  // returns null if no streaming service is selected.
-  const [selectedServices, setSelectedServices] = useState([]);
-
   useEffect(() => {
     async function loadSelectedServices() {
       try {
         const res = await authFetch("/api/streaming");
-
-        if (!res.ok) {
-          console.log("Failed to fetch streaming services:", res.status);
-          console.log(await res.text());
-          return;
-        }
-
+        if (!res.ok) return;
         const data = await res.json();
-
         const services = data.map((row) => row.streaming_service);
-
-        setSelectedServices(services);
         localStorage.setItem("selectedServices", JSON.stringify(services));
-
-        console.log("selected services from backend:", services);
       } catch (err) {
         console.log("Error loading streaming services:", err);
-        setSelectedServices([]);
       }
     }
-
     loadSelectedServices();
   }, []);
 
