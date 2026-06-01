@@ -94,8 +94,9 @@ export default function Home() {
   }, [location.pathname, loginMsg, navigate]);
 
 
-  const availableBacklog = backlogItems.filter((movie) => 
-      !movie.removed && movie.status !== 'completed' && hasSelectedStreamingService(movie, selectedServices));
+  const availableBacklog = backlogItems.filter((movie) =>
+      !movie.removed && movie.status !== 'completed' &&
+      (selectedServices.length === 0 || hasSelectedStreamingService(movie, selectedServices)));
 
 
   const recommended = [...availableBacklog]
