@@ -1,47 +1,79 @@
 # Rewind
-Rewind is a media backlog app for movies and TV show fans to keep track of their watchlist and see when a movie
-becomes available on their streaming service, as well as keep track of their watch history.
-with a React/Vite frontend, an Express backend, a MySQL database, and TMDB for movie data.
 
-## Key Features
+## Overview
+Rewind is a media backlog app for users to keep track of movies and TV shows they're interested in. Beyond just storing what they want to watch, users can also view items available on their streaming services and accumulate a dedicated watchlist by marking movies/shows that they've completed.
 
-Write later.
+### Tech Stack:
+| Frontend | Backend |
+|----------|----------|
+| React | Node.js |
+| Vite | Express |
+| Tailwind CSS | MySQL |
+
+## Features
+
+- Discover movies and TV shows through an API provided by The Movie Database (TMDB)
+- Add movies and TV shows to your backlog
+- Mark items as "Completed" to build a watch history
+- Select your current streaming services, and find items in the backlog OR your search page that are available for streaming
+- Receive a random backlog recommendation whenever you reload the page
 
 ## Prerequisites
 
-### Clone the repository:
+- [Node.js](https://nodejs.org/) (v18+)
+- [MySQL](https://www.mysql.com/) (v8.4+)
 
-##### `git clone https://github.com/Ethjin8/Rewind.git`
+## Setup Guide
 
-##### `cd CS35L-Project`
+### 1. Clone the repository
 
-### Set Up Backend:
+```bash
+git clone https://github.com/Ethjin8/Rewind.git
+cd CS35L-Project
+```
 
-##### `cd backend`
+### 2. Database setup
 
-1. Database Setup: MySQL
-
-Run `mysql --version` in your terminal to check that the client is installed.
-
-If not, install MySQL on your computer with the following commands:
+Install MySQL on your computer through the terminal with the following commands:
 - Mac: `brew install mysql`
 - Windows: Download the installer from https://dev.mysql.com/downloads/installer/
 - Linux: `sudo apt install mysql-server`
 
-Again, run `mysql --version` in your terminal to check that the client is installed.
+Run `mysql --version` to check that the client is installed.
 
-The schema.sql file contains the necessary commands to set up your local database in MySQL. The primary database will be called `backlog_db`. To run it, simply type `mysql -u root -p < schema.sql`.
-If that doesn't work, just simply run `mysql -u root -p` then enter your mysql password. Then, `source schema.sql;`
-In the .env file in backend folder, replace DATABASE_URL's password with your real MySQL password.
+The schema.sql file contains the necessary commands to set up your local database in MySQL. The primary database will be called `backlog_db`, with four tables: `users`, `movies_shows`, `streaming_services`, and `refresh_tokens`. Run the following command to initialize the database:
 
-2. API Setup
+```
+mysql -u root -p < schema.sql
+```
 
-Create an account or log in on TMDB: https://www.themoviedb.org/?language=en-US
-After logged in, create API for "Personal Use Only": https://www.themoviedb.org/settings/api/request?language=en-US
-Once API is created, you can find the API Key here (NOT API Read Access Token): https://www.themoviedb.org/settings/api?language=en-US
-Replace your_tmdb_api_key_here in .env file with your API Key.
+### 3. Environment variables
 
-3. (Optional for testing) Get JWT Token Secret Keys:
+Create a `.env` file in the `backend/` directory with the folowing variables:
+```
+DATABASE_URL=
+TMDB_API_KEY=
+ACCESS_TOKEN_SECRET=
+REFRESH_TOKEN_SECRET=
+```
+
+Refer to the `.env.example` file to see this pattern as well.
+
+| Variable | Required |
+|----------|----------|
+| `DATABASE_URL` | Yes | 
+| `TMDB_API_KEY` | Yes |
+| `ACCESS_TOKEN_SECRET` | Optional |
+| `REFRESH_TOKEN_SECRET` | Optional |
+
+#### Database URL
+This is the MySQL connection string that actually links the app to the database. For a local install, the typical format is
+```
+DATABASE_URL=mysql://root:yourpassword@localhost:3306/backlog_db
+```
+
+#### JWT Secret Keys (Optional)
+For testing purposes, you may want to sign your own JSON web tokens. For that, you need secret access token and refresh token keys.
 
 In terminal, run the following two commands:
 - `node`
@@ -49,28 +81,44 @@ In terminal, run the following two commands:
 
 This gives you a random 64-byte integer, which you can use to sign your JWT tokens. Run the pair of commands twice to get ACCESS_TOKEN_SECRET and REFRESH_TOKEN_SECRET, then paste those values into your .env file.
 
-## Run Backend
+### 4. Obtaining a TMDB API Key
 
-Open a new terminal. Then type:
-##### `cd Backend`
+Create an account or log in on [TMDB](https://www.themoviedb.org/?language=en-US).
 
-##### `npm install`
+Once you do so, create API for "Personal Use Only" [here](https://www.themoviedb.org/settings/api/request?language=en-US).
 
-##### `npm run devStart`
+Once API is created, you can find the API Key [here](https://www.themoviedb.org/settings/api?language=en-US).
+  - Note: DO NOT use the "API Read Access Token", use the one labeled "API Key"
 
-## Run Frontend
+Replace your_tmdb_api_key_here in the .env file with your actual API Key.
 
-Open a new terminal. Then type:
+## Usage
 
-##### `cd frontend`
+### Start the Backend
 
-##### `npm install`
-
-##### `npm run dev`
-
-##### The frontend should run on:
-```text
-http://localhost:5173
+Run the following commands in your terminal:
+```
+cd backend
+npm install
+npm run devStart
 ```
 
-Open that URL in your browser.
+### Start the Frontend
+
+Run the following commands in your terminal:
+```
+cd frontend
+npm install
+npm run dev
+```
+
+The app should be available at `http://localhost:5173`.
+
+## Team
+
+- Kairi Ho
+- Michael Zheng
+- Yifan Fang
+- Ethan Jin
+
+Made for CS 35L - Software Construction at UCLA, taught by Professor Tobias Dürschmid.
