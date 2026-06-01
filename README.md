@@ -74,3 +74,9 @@ http://localhost:5173
 ```
 
 Open that URL in your browser.
+
+## Run Tests
+
+in terminal run:
+
+#### 'bash scripts/e2e-test.sh'
