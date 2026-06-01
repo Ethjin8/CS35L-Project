@@ -1,6 +1,4 @@
 # Rewind
-
-## Overview
 Rewind is a media backlog app for users to keep track of movies and TV shows they're interested in. Beyond just storing what they want to watch, users can also view items available on their streaming services and accumulate a dedicated watchlist by marking movies/shows that they've completed.
 
 ### Tech Stack:
@@ -12,7 +10,7 @@ Rewind is a media backlog app for users to keep track of movies and TV shows the
 
 ## Features
 
-- Discover movies and TV shows through an API provided by The Movie Database (TMDB)
+- Discover movies and TV shows through an API provided by [The Movie Database (TMDB)](https://www.themoviedb.org/?language=en-US)
 - Add movies and TV shows to your backlog
 - Mark items as "Completed" to build a watch history
 - Select your current streaming services, and find items in the backlog OR your search page that are available for streaming
