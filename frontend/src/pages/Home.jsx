@@ -70,12 +70,6 @@ export default function Home() {
         if (!mounted) return;
         setBacklogItems(data.map((m) => ({ ...m, status: m.status || 'not_started', removed: false })));
 
-        // const aRes = await authFetch('/api/backlog/available');
-        // if (aRes.ok) {
-        //   const aData = await aRes.json();
-        //   if (!mounted) return;
-        //   setAvailableItems(aData || []);
-        //}
         setError(null);
       } catch (err) {
         setError(err.message || 'Failed to load data');
@@ -93,13 +87,15 @@ export default function Home() {
     }
   }, [location.pathname, loginMsg, navigate]);
 
+  const currentBacklog = backlogItems.filter((movie) => 
+    !movie.removed && movie.status !== 'completed');
+  const availableBacklog = currentBacklog.filter((movie) => 
+    hasSelectedStreamingService(movie));
 
-  const availableBacklog = backlogItems.filter((movie) => 
-      !movie.removed && movie.status !== 'completed' && hasSelectedStreamingService(movie, selectedServices));
-
-
-  const recommended = [...availableBacklog]
-    .sort((a, b) => new Date(a.date_added || a.addedAt) - new Date(b.date_added || b.addedAt))[0];
+  // Generate random # once on rendering
+  const [randomNum] = useState(() => Math.random());
+  // Produce random recommendation from movies still in the backlog
+  const recommended = currentBacklog[Math.floor(randomNum * currentBacklog.length)];
 
   function endpointFor(item) {
     const kind = item?.type === 'show' ? 'shows' : 'movies';
@@ -235,7 +231,7 @@ export default function Home() {
       <section className="home-section">
         <MovieCarousel
           title="MY BACKLOG"
-          movies={backlogItems.filter((m) => !m.removed && m.status !== 'completed')}
+          movies={currentBacklog}
           emptyMessage="Your backlog is empty. Use Explore to add movies or shows."
           getActions={(movie) => [
             { text: 'Mark as Watched', onClick: () => handleWatched(movie.id) },
