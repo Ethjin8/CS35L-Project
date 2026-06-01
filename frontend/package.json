@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "test:e2e": "playwright test",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -17,6 +18,8 @@
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "playwright": "^1.40.0",
     "@eslint/js": "^10.0.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
