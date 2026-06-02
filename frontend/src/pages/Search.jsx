@@ -41,7 +41,8 @@ function movieMatchesGenre(movie, genreQuery) {
 
 export default function Search() {
   const [title, setTitle]       = useState('');
-  const [genre, setGenre]         = useState('');
+  const [genre, setGenre]       = useState('');
+  const [typeFilter, setTypeFilter] = useState('all');
   const [results, setResults]   = useState([]);
   const [searched, setSearched] = useState(false);
   const [error, setError] = useState('');
@@ -119,15 +120,15 @@ export default function Search() {
 
     setSearchLoading(true);
     try {
-      const [movieRes, showRes] = await Promise.all([
-        authFetch(`/api/movies/search?query=${encodeURIComponent(title.trim())}`),
-        authFetch(`/api/shows/search?query=${encodeURIComponent(title.trim())}`)
+      const q = encodeURIComponent(title.trim());
+      const [movieData, showData] = await Promise.all([
+        typeFilter !== 'shows'
+          ? authFetch(`/api/movies/search?query=${q}`).then((r) => (r.ok ? r.json() : { results: [] }))
+          : Promise.resolve({ results: [] }),
+        typeFilter !== 'movies'
+          ? authFetch(`/api/shows/search?query=${q}`).then((r) => (r.ok ? r.json() : { results: [] }))
+          : Promise.resolve({ results: [] }),
       ]);
-
-      if (!movieRes.ok) throw new Error(`Movie search failed (${movieRes.status})`);
-      if (!showRes.ok) throw new Error(`Show search failed (${showRes.status})`);
-
-      const [movieData, showData] = await Promise.all([movieRes.json(), showRes.json()]);
 
       const movieResults = (movieData.results || []).map(m => ({ ...m, media_type: 'movie' }));
       const showResults = (showData.results || []).map(s => ({ ...s, media_type: 'tv' }));
@@ -232,6 +233,15 @@ export default function Search() {
             />
           </div>
 
+          <div className="search-field">
+            <label>Type</label>
+            <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
+              <option value="all">All</option>
+              <option value="movies">Movies</option>
+              <option value="shows">TV Shows</option>
+            </select>
+          </div>
+
           <button type="submit">
             Search
           </button>
@@ -284,16 +294,20 @@ export default function Search() {
             <p className="search-error">{trendingError}</p>
           ) : (
             <>
-              <TrendingRail
-                title="Trending movies"
-                items={filteredTrendingMovies}
-                onAddToBacklog={(id) => handleAddTrending(id, 'movie')}
-              />
-              <TrendingRail
-                title="Trending shows"
-                items={filteredTrendingShows}
-                onAddToBacklog={(id) => handleAddTrending(id, 'show')}
-              />
+              {typeFilter !== 'shows' && (
+                <TrendingRail
+                  title="Trending movies"
+                  items={filteredTrendingMovies}
+                  onAddToBacklog={(id) => handleAddTrending(id, 'movie')}
+                />
+              )}
+              {typeFilter !== 'movies' && (
+                <TrendingRail
+                  title="Trending shows"
+                  items={filteredTrendingShows}
+                  onAddToBacklog={(id) => handleAddTrending(id, 'show')}
+                />
+              )}
             </>
           )}
         </section>
