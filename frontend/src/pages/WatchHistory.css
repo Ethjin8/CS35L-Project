@@ -41,8 +41,9 @@
 
 .history-controls {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.8rem;
+  align-items: center;
   justify-content: flex-end;
 }
 
@@ -63,6 +64,7 @@
 .history-controls select:focus {
   background: #0a1628;
 }
+
 
 .history-groups {
   display: flex;
@@ -110,15 +112,6 @@
   .watch-history-header {
     align-items: flex-start;
     flex-direction: column;
-  }
-
-  .history-controls {
-    justify-content: flex-start;
-    width: 100%;
-  }
-
-  .history-controls select {
-    flex: 1 1 180px;
   }
 
   .history-grid {

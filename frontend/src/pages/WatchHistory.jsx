@@ -31,6 +31,7 @@ export default function WatchHistory() {
   const [loading, setLoading] = useState(true);
   const [sortOrder, setSortOrder] = useState('latest');
   const [groupBy, setGroupBy] = useState('month');
+  const [typeFilter, setTypeFilter] = useState('all');
 
   useEffect(() => {
     async function load() {
@@ -92,7 +93,13 @@ export default function WatchHistory() {
     );
   }
 
-  const sortedItems = [...items].sort((a, b) =>
+  const typeFiltered = typeFilter === 'movies'
+    ? items.filter((i) => i.type !== 'show')
+    : typeFilter === 'shows'
+    ? items.filter((i) => i.type === 'show')
+    : items;
+
+  const sortedItems = [...typeFiltered].sort((a, b) =>
     sortOrder === 'latest' ? b.watchedAt - a.watchedAt : a.watchedAt - b.watchedAt
   );
 
@@ -106,6 +113,11 @@ export default function WatchHistory() {
           <h1>Watch History</h1>
         </div>
         <div className="history-controls">
+          <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
+            <option value="all">All</option>
+            <option value="movies">Movies</option>
+            <option value="shows">TV Shows</option>
+          </select>
           <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
             <option value="latest">Latest Watched</option>
             <option value="oldest">First Watched</option>

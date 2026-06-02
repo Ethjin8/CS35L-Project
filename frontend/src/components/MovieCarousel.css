@@ -38,6 +38,11 @@
   box-shadow: none;
 }
 
+.streaming-toggle--active {
+  background: #0a1628;
+  color: #ede4c5;
+}
+
 .carousel-shell {
   display: grid;
   column-gap: 50px;

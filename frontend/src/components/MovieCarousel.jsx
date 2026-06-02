@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import PosterCard from './PosterCard';
+import { hasSelectedStreamingService } from '../lib/checkAvailability';
 import './MovieCarousel.css';
 
 function sortMovies(movies, order) {
@@ -24,24 +25,33 @@ function filterMovies(movies, nameQuery, genreQuery) {
   return result;
 }
 
-export default function MovieCarousel({ title, movies, getActions, emptyMessage }) {
+export default function MovieCarousel({ title, movies, getActions, emptyMessage, showStreamingToggle = false }) {
   const rowRef = useRef(null);
-  const [expanded, setExpanded]     = useState(false);
-  const [sortOrder, setSortOrder]   = useState('oldest');
-  const [nameQuery, setNameQuery]   = useState('');
-  const [genreQuery, setGenreQuery] = useState('');
+  const [expanded, setExpanded]       = useState(false);
+  const [sortOrder, setSortOrder]     = useState('oldest');
+  const [nameQuery, setNameQuery]     = useState('');
+  const [genreQuery, setGenreQuery]   = useState('');
+  const [streamingOnly, setStreamingOnly] = useState(false);
 
   function scrollCarousel(direction) {
     rowRef.current?.scrollBy({ left: direction * 700, behavior: 'smooth' });
   }
 
-  const visibleMovies = filterMovies(sortMovies(movies, sortOrder), nameQuery, genreQuery);
+  const streamingFiltered = streamingOnly
+    ? movies.filter((m) => hasSelectedStreamingService(m))
+    : movies;
+  const visibleMovies = filterMovies(sortMovies(streamingFiltered, sortOrder), nameQuery, genreQuery);
   const hasFilters = Boolean(nameQuery.trim() || genreQuery.trim());
   const isEmpty = visibleMovies.length === 0;
   const fallbackMessage = emptyMessage || 'No titles here yet.';
-  const emptyStateMessage = movies.length === 0
-    ? fallbackMessage
-    : 'No titles match those filters.';
+  let emptyStateMessage;
+  if (movies.length === 0) {
+    emptyStateMessage = fallbackMessage;
+  } else if (streamingOnly && streamingFiltered.length === 0) {
+    emptyStateMessage = 'None of these titles are available on your streaming services.';
+  } else {
+    emptyStateMessage = 'No titles match those filters.';
+  }
 
   const controlClass =
     'bg-transparent text-[#ede4c5] border-[3px] border-black box-border font-bold font-[Saira] text-sm px-[14px] py-[8px] outline-none';
@@ -79,6 +89,15 @@ export default function MovieCarousel({ title, movies, getActions, emptyMessage 
             className={`${controlClass} w-28 placeholder:text-[#ede4c580]`}
             style={{ boxShadow: '4px 4px 0 black' }}
           />
+
+          {showStreamingToggle && (
+            <button
+              className={`expand-button streaming-toggle${streamingOnly ? ' streaming-toggle--active' : ''}`}
+              onClick={() => setStreamingOnly((v) => !v)}
+            >
+              {streamingOnly ? 'Streaming ✓' : 'Streaming'}
+            </button>
+          )}
 
           <button
             className="expand-button"
