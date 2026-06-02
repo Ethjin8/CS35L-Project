@@ -4,7 +4,6 @@ import './Home.css';
 import '../pages/Auth.css';
 import MovieCarousel from '../components/MovieCarousel';
 import { authFetch } from '../lib/authFetch';
-import { hasSelectedStreamingService } from '../lib/checkAvailability';
 
 function getPosterSrc(path) {
   if (!path) return null;
@@ -70,10 +69,10 @@ export default function Home() {
     }
   }, [location.pathname, loginMsg, navigate]);
 
-  const currentBacklog = backlogItems.filter((movie) => 
+  const currentBacklog = backlogItems.filter((movie) =>
     !movie.removed && movie.status !== 'completed');
-  const availableBacklog = currentBacklog.filter((movie) => 
-    hasSelectedStreamingService(movie));
+  const movieBacklog = currentBacklog.filter((item) => item.type !== 'show');
+  const showBacklog  = currentBacklog.filter((item) => item.type === 'show');
 
   // Generate random # once on rendering
   const [randomNum] = useState(() => Math.random());
@@ -213,18 +212,20 @@ export default function Home() {
 
       <section className="home-section">
         <MovieCarousel
-          title="MY BACKLOG"
-          movies={currentBacklog}
-          emptyMessage="Your backlog is empty. Use Explore to add movies or shows."
+          title="MOVIES"
+          movies={movieBacklog}
+          emptyMessage="No movies in your backlog yet. Use Explore to add some."
+          showStreamingToggle
           getActions={(movie) => [
             { text: 'Mark as Watched', onClick: () => handleWatched(movie.id) },
             { text: 'Remove', onClick: () => handleRemove(movie.id) },
           ]}
         />
         <MovieCarousel
-          title="Available on my streaming services"
-          movies={availableBacklog}
-          emptyMessage="No streaming matches yet. Add backlog items and streaming services to see available titles here."
+          title="TV SHOWS"
+          movies={showBacklog}
+          emptyMessage="No TV shows in your backlog yet. Use Explore to add some."
+          showStreamingToggle
           getActions={(movie) => [
             { text: 'Mark as Watched', onClick: () => handleWatched(movie.id) },
             { text: 'Remove', onClick: () => handleRemove(movie.id) },
