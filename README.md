@@ -79,10 +79,10 @@ If you set up MySQL with a password, the URL will be: `DATABASE_URL=mysql://root
 #### JWT Secret Keys
 These are used to sign and verify JSON web tokens for authentication.
 
-In terminal, run the following commands:
+In terminal, run the following command:
 - `node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"`
 
-This gives you a random 64-byte integer, which you can use to sign your JWT tokens. Run the pair of commands twice to get ACCESS_TOKEN_SECRET and REFRESH_TOKEN_SECRET, then paste those values into your .env file.
+This gives you a random 64-byte integer, which you can use to sign your JWT tokens. Run the command twice to get ACCESS_TOKEN_SECRET and REFRESH_TOKEN_SECRET, then paste those values into your .env file.
 
 ### 4. Obtaining a TMDB API Key
 
@@ -90,15 +90,15 @@ Create an account or log in on [TMDB](https://www.themoviedb.org/?language=en-US
 
 Once you do so, create API for "Personal Use Only" [here](https://www.themoviedb.org/settings/api/request?language=en-US).
 
-Once API is created, you can find the API Key [here](https://www.themoviedb.org/settings/api?language=en-US).
-
-Put the following information in the required fields:
+Put the following information in the form's required fields:
 - Application Name: Rewind
 - Application URL: https://localhost:5173
 - Type of Use: Desktop Application
 - Application Summary: a personal web app for storing movies and shows in a backlog
 
 Additionally, fill out the rest of the information accordingly (e.g., name, email, address, etc.). Note that this is mainly a formality—you will not be charged, as the TMDB Developer Plan is completely free.
+
+Once API is created, you can find the API Key [here](https://www.themoviedb.org/settings/api?language=en-US).
 
 Finally, replace your_tmdb_api_key_here in the .env file with your actual API Key.
   - Note: DO NOT use the "API Read Access Token", use the one labeled "API Key"
