@@ -72,8 +72,9 @@ Refer to the `.env.example` file to see this pattern as well.
 #### Database URL
 This is the MySQL connection string that actually links the app to the database. For a local install, the typical format is
 ```
-DATABASE_URL=mysql://root:yourpassword@localhost:3306/backlog_db
+DATABASE_URL=mysql://root@localhost:3306/backlog_db
 ```
+If you set up MySQL with a password, the URL will be: `DATABASE_URL=mysql://root:yourpassword@localhost:3306/backlog_db`.
 
 #### JWT Secret Keys
 These are used to sign and verify JSON web tokens for authentication.
@@ -90,9 +91,17 @@ Create an account or log in on [TMDB](https://www.themoviedb.org/?language=en-US
 Once you do so, create API for "Personal Use Only" [here](https://www.themoviedb.org/settings/api/request?language=en-US).
 
 Once API is created, you can find the API Key [here](https://www.themoviedb.org/settings/api?language=en-US).
-  - Note: DO NOT use the "API Read Access Token", use the one labeled "API Key"
 
-Replace your_tmdb_api_key_here in the .env file with your actual API Key.
+Put the following information in the required fields:
+- Application Name: Rewind
+- Application URL: https://localhost:5173
+- Type of Use: Desktop Application
+- Application Summary: a personal web app for storing movies and shows in a backlog
+
+Additionally, fill out the rest of the information accordingly (e.g., name, email, address, etc.). Note that this is mainly a formality—you will not be charged, as the TMDB Developer Plan is completely free.
+
+Finally, replace your_tmdb_api_key_here in the .env file with your actual API Key.
+  - Note: DO NOT use the "API Read Access Token", use the one labeled "API Key"
 
 ## Usage
 
