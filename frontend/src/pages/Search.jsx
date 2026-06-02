@@ -286,7 +286,7 @@ export default function Search() {
         )}
       </section>
 
-      {!isTitleSearch && (
+      {!isTitleSearch && !searchLoading && (
         <section className="trending-section">
           {trendingLoading ? (
             <p className="trending-loading">Loading trending...</p>

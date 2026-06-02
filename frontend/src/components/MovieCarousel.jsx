@@ -95,7 +95,7 @@ export default function MovieCarousel({ title, movies, getActions, emptyMessage,
               className={`expand-button streaming-toggle${streamingOnly ? ' streaming-toggle--active' : ''}`}
               onClick={() => setStreamingOnly((v) => !v)}
             >
-              {streamingOnly ? 'Streaming ✓' : 'Streaming'}
+              {streamingOnly ? 'Available to Stream ✓' : 'Available to Stream'}
             </button>
           )}
 
@@ -115,7 +115,7 @@ export default function MovieCarousel({ title, movies, getActions, emptyMessage,
 
         <div
           ref={rowRef}
-          className={expanded ? 'movie-grid-expanded' : 'movie-carousel-row'}
+          className={expanded && !isEmpty ? 'movie-grid-expanded' : expanded ? '' : 'movie-carousel-row'}
         >
           {isEmpty ? (
             <div className="carousel-empty-state">

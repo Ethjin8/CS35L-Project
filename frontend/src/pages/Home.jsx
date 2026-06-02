@@ -212,7 +212,7 @@ export default function Home() {
 
       <section className="home-section">
         <MovieCarousel
-          title="MOVIES"
+          title="SAVED MOVIES"
           movies={movieBacklog}
           emptyMessage="No movies in your backlog yet. Use Explore to add some."
           showStreamingToggle
@@ -222,7 +222,7 @@ export default function Home() {
           ]}
         />
         <MovieCarousel
-          title="TV SHOWS"
+          title="SAVED TV SHOWS"
           movies={showBacklog}
           emptyMessage="No TV shows in your backlog yet. Use Explore to add some."
           showStreamingToggle
