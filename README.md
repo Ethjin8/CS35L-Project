@@ -147,6 +147,15 @@ If port `3000` is taken, set a different port in `backend/.env`:
 ```
 PORT=3001
 ```
+## Architectural Diagrams
+### Entity Relationship Diagram (ERD)
+<div align="center"><img width="449" height="569" alt="image" src="https://github.com/user-attachments/assets/69eb9f84-65eb-4d8b-91a8-9008bd2a6a4b"/></div>
+
+This ERD displays how our database tables (the entities) are structured and how they relate to one another. In accordance with standard diagram practices, each entity's attributes are labeled in ovals and connected to their entity with a line. The relationships are structured in diamonds that lie between entities, with phrases that describe the kind of relationship. Finally, numbers are labeled on the edges to demonstrate the cardinality of their relationship.
+
+For instance, the "users" entity has attributes "id", "username", and "password". Each user has a one-to-many (1:N) relationship with the "movies_shows" entity, meaning a single user can track many movies or shows. The "movies_shows" entity has attributes like "id", "movie_show_id", "status", "type", and "date_added".
+
+Furthermore, the ERD underlines primary keys, which uniquely identify each record in the entity. Unique constraints are annotated in text beside the relevant entities to indicate combinations of attributes that must be unique (e.g., a user cannot subscribe to the same streaming service twice). Enumerated values (entries which can only have specific values) are associated with their attributes in "{...}" format.
 
 ## Run Tests
 
