@@ -42,8 +42,9 @@ Run `mysql --version` to check that the client is installed.
 The schema.sql file contains the necessary commands to set up your local database in MySQL. The primary database will be called `backlog_db`, with four tables: `users`, `movies_shows`, `streaming_services`, and `refresh_tokens`. Run the following command to initialize the database:
 
 ```
-mysql -u root -p < schema.sql
+mysql -u root < backend/schema.sql 
 ```
+Note that if you set up MySQL with a password, the command will be: `mysql -u root -p < backend/schema.sql`.
 
 ### 3. Environment variables
 
