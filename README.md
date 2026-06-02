@@ -1,7 +1,7 @@
 # Rewind
 Rewind is a media backlog app for users to keep track of movies and TV shows they're interested in. Beyond just storing what they want to watch, users can also view items available on their streaming services and accumulate a dedicated watchlist by marking movies/shows that they've completed.
 
-### Tech Stack:
+### Tech Stack
 | Frontend | Backend |
 |----------|----------|
 | React | Node.js |
@@ -27,7 +27,7 @@ Rewind is a media backlog app for users to keep track of movies and TV shows the
 
 ```bash
 git clone https://github.com/Ethjin8/Rewind.git
-cd CS35L-Project
+cd Rewind
 ```
 
 ### 2. Database setup
