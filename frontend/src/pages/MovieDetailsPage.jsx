@@ -262,6 +262,14 @@ export default function MovieDetailsPage() {
                     <dt>Runtime</dt>
                     <dd>{movie.length || 'N/A'}</dd>
                   </div>
+                  {(movie.number_of_seasons && movie.number_of_episodes)
+                   &&
+                  <div>
+                    <dt>Seasons</dt>
+                    <dd>{movie.number_of_seasons} Season{movie.number_of_seasons > 1 ? 's' : ''},</dd>
+                    <dd>{movie.number_of_episodes} Episode{movie.number_of_episodes > 1 ? 's' : ''}</dd>
+                  </div>
+                   }
                   <div>
                     <dt>Genres</dt>
                     <dd>{movie.genre || 'N/A'}</dd>

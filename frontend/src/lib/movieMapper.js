@@ -27,12 +27,17 @@ export function mapMovie(raw) {
     watchProviders: raw['watch/providers'] || null,
     "watch/providers": raw["watch/providers"] || null,
     vote_average: raw.vote_average || null,
-    status: raw.status || null,
+    release_status: raw.status || null,
     homepage: raw.homepage || null,
     certification,
     release_date: raw.release_date || null,
     adult: !!raw.adult,
     raw,
+    number_of_seasons: raw.number_of_seasons || null,
+    number_of_episodes: raw.number_of_episodes || null,
+    media_type: raw.media_type || (raw.title ? 'movie' : 'show'),
+    episode_run_time: raw.episode_run_time || null,
+    popularity: raw.popularity || null,
   };
 }
 
