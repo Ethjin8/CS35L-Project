@@ -111,8 +111,7 @@ export default function Search() {
     fetchTrending();
   }, []);
 
-  async function handleSearch(e) {
-    e.preventDefault();
+  async function runSearch(currentTypeFilter) {
     setError('');
 
     if (!title.trim()) {
@@ -125,10 +124,10 @@ export default function Search() {
     try {
       const q = encodeURIComponent(title.trim());
       const [movieData, showData] = await Promise.all([
-        typeFilter !== 'shows'
+        currentTypeFilter !== 'shows'
           ? authFetch(`/api/movies/search?query=${q}`).then((r) => (r.ok ? r.json() : { results: [] }))
           : Promise.resolve({ results: [] }),
-        typeFilter !== 'movies'
+        currentTypeFilter !== 'movies'
           ? authFetch(`/api/shows/search?query=${q}`).then((r) => (r.ok ? r.json() : { results: [] }))
           : Promise.resolve({ results: [] }),
       ]);
@@ -165,7 +164,7 @@ export default function Search() {
 
       setResults(searchMovies(mapped, '', genre));
       setSearched(true);
-      
+
         } catch (searchError) {
           setResults([]);
           setSearched(true);
@@ -174,6 +173,13 @@ export default function Search() {
           setSearchLoading(false);
         }
       }
+
+  function handleSearch(e) {
+    e.preventDefault();
+    runSearch(typeFilter);
+  }
+
+  useEffect(() => { if (searched) runSearch(typeFilter); }, [typeFilter]);
 
   const genreQ = genre.trim().toLowerCase();
   const filteredTrendingMovies = genreQ
