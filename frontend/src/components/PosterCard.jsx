@@ -5,10 +5,11 @@ import './PosterCard.css';
  * PosterCard
  *
  * Props:
- *   movie     {object}                           - TMDB movie object
- *   dateAdded {number}                           - Unix timestamp (ms), app-specific, shown in hover panel
- *   actions   {{ text: string, onClick: fn }[]}  - buttons shown in the hover panel
- *   showAvail {boolean}                          - whether to display the availability badge
+ *   movie        {object}                           - TMDB movie object
+ *   dateAdded    {number}                           - Unix timestamp (ms), shown in hover panel
+ *   actions      {{ text: string, onClick: fn }[]}  - buttons shown in the hover panel
+ *   inBacklog    {boolean}                           - shows SAVED ribbon on the poster
+ *   showAvail    {boolean}                          - whether to display the availability badge
  */
 export default function PosterCard({ movie, dateAdded, actions = [], inBacklog = false, showAvail = false }) {
   const [open, setOpen] = useState(false);
@@ -26,8 +27,8 @@ export default function PosterCard({ movie, dateAdded, actions = [], inBacklog =
         </div>
         )}
         {inBacklog && (
-          <div className="absolute top-2 right-2 z-10 w-7 h-7 bg-green-500 border-[1px] border-black shadow-[2px_2px_0_black] flex items-center justify-center pointer-events-none">
-            <span className="text-white font-black text-lg leading-none">✔</span>
+          <div className="poster-ribbon">
+            <span>SAVED</span>
           </div>
         )}
 

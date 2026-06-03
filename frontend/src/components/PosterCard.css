@@ -1,5 +1,24 @@
-.poster-card {
-  position: relative;
+.poster-ribbon {
+  position: absolute;
+  top: 14px;
+  right: -36px;
+  z-index: 10;
+  width: 130px;
+  transform: rotate(45deg);
+  background: #ede4c5;
+  border: 2px solid black;
+  box-shadow: 2px 2px 0 black;
+  text-align: center;
+  pointer-events: none;
+}
+
+.poster-ribbon span {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 900;
+  color: #0a1628;
+  letter-spacing: 1px;
+  padding: 3px 0;
 }
 
 .poster-streaming-badge {
