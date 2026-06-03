@@ -39,6 +39,7 @@ export function mapMovie(raw) {
     number_of_episodes: raw.number_of_episodes || null,
     media_type: raw.media_type || (raw.title ? 'movie' : 'show'),
     episode_run_time: raw.episode_run_time || null,
+    popularity: raw.popularity || null,
   };
 }
 
