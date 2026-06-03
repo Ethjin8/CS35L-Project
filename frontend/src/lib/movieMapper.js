@@ -1,7 +1,5 @@
 // Normalize a TMDB movie object into the minimal shape the frontend uses.
 export function mapMovie(raw) {
-  console.log("RAW TMDB OBJECT:", raw);
-  console.log("AVAILABLE FIELDS:", Object.keys(raw));
   if (!raw) return null;
 
   const posterUrl = raw.poster_path ? `https://image.tmdb.org/t/p/w500${raw.poster_path}` : null;
