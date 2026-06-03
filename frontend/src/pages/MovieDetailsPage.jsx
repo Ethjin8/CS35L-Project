@@ -266,8 +266,8 @@ export default function MovieDetailsPage() {
                    &&
                   <div>
                     <dt>Seasons</dt>
-                    <dd>{movie.number_of_seasons} season{movie.number_of_seasons > 1 ? 's' : ''}</dd>
-                    <dd>{movie.number_of_episodes} episode{movie.number_of_episodes > 1 ? 's' : ''}</dd>
+                    <dd>{movie.number_of_seasons} Season{movie.number_of_seasons > 1 ? 's' : ''},</dd>
+                    <dd>{movie.number_of_episodes} Episode{movie.number_of_episodes > 1 ? 's' : ''}</dd>
                   </div>
                    }
                   <div>
