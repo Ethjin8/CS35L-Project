@@ -28,8 +28,11 @@ function searchMovies(movies, titleQuery, genreQuery) {
   if (genreQuery.trim()) {
     const q = genreQuery.trim().toLowerCase();
     results = results.filter((movie) => movieMatchesGenre(movie, q));
+
   }
-  return results;
+  return [...results].sort(
+    (a, b) => (b.popularity || 0) - (a.popularity || 0)
+  );
 }
 
 function movieMatchesGenre(movie, genreQuery) {
