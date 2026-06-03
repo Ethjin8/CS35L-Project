@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
+import logo from '../assets/logo.png'
 
 const pages = [
   { label: 'Home',         path: '/home' },
@@ -52,6 +53,9 @@ export default function Nav() {
 
   return (
     <nav className="nav-bar flex flex-wrap py-2">
+      <section className="nav-logo">
+        <img src={logo} alt="Logo" />
+      </section>
       {pages.map(({ label, path }) => (
         <Link
           key={path}

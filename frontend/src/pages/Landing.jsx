@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Auth.css';
+import logo from '../assets/logo.png';
 import loginImage from '../assets/login-image.png';
 
 export default function Landing() {
@@ -13,6 +14,9 @@ export default function Landing() {
         {!view && (
           <div className="auth-null">
             <div className="brand-block">
+              <section className="logo-image">
+                <img src={logo} alt="Logo"></img>
+              </section>
               <h1>REWIND</h1>
               <p className="tagline">Press Play on the Past</p>
             </div>
