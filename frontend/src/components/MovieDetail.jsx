@@ -50,9 +50,8 @@ export default function MovieDetail({ movie, onClose, actions = [] }) {
           <div className="movie-chip-row">
             {(movie.release_date || movie.first_air_date) && <span>{(movie.release_date || movie.first_air_date).slice(0, 4)}</span>}
             {movie.certification && <span>{movie.certification}</span>}
-            {movie.runtime && <span>{Math.floor(movie.runtime / 60)}h {movie.runtime % 60}m</span>}
+            {movie.runtime && <span>{Math.floor(movie.runtime / 60) > 0 ? `${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m` : `${movie.runtime}min`}</span>}
             {movie.genres && <span>{movie.genres.map(g => g.name).join(', ')}</span>}
-            {movie.popularity && <span>Popularity: {movie.popularity}</span>}
           </div>
 
           {movie["watch/providers"] && (
