@@ -52,6 +52,8 @@ export default function MovieDetail({ movie, onClose, actions = [] }) {
             {movie.certification && <span>{movie.certification}</span>}
             {movie.runtime && <span>{Math.floor(movie.runtime / 60)}h {movie.runtime % 60}m</span>}
             {movie.genres && <span>{movie.genres.map(g => g.name).join(', ')}</span>}
+            {movie.number_of_seasons && <span>{movie.number_of_seasons} season{movie.number_of_seasons > 1 ? 's' : ''}</span>}
+            {movie.number_of_episodes && <span>{movie.number_of_episodes} episode{movie.number_of_episodes > 1 ? 's' : ''}</span>}
           </div>
 
           {movie["watch/providers"] && (
