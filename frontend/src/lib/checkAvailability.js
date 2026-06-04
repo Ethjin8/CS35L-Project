@@ -8,7 +8,6 @@ function normalizeProviderName(name) {
     if (name.includes('Paramount')) return 'Paramount+';
     if (name.includes('Disney')) return 'Disney+';
     if (name.includes('Netflix')) return 'Netflix';
-    if (name.includes('Apple')) return 'Apple TV';
     return name;
     }
 
