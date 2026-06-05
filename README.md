@@ -157,6 +157,11 @@ For instance, the "users" entity has attributes "id", "username", and "password"
 
 Furthermore, the ERD underlines primary keys, which uniquely identify each record in the entity. Unique constraints are annotated in text beside the relevant entities to indicate combinations of attributes that must be unique (e.g., a user cannot subscribe to the same streaming service twice). Enumerated values (entries which can only have specific values) are associated with their attributes in "{...}" format.
 
+### Sequence Diagram
+<div align="center"><img width="449" height="569" alt="image" src="https://github.com/user-attachments/assets/69eb9f84-65eb-4d8b-91a8-9008bd2a6a4b"/></div>
+
+This sequence diagram focuses on the process of searching up a movie and what the user receives on the search page results in return. This diagram and specific interaction is demonstrates a key part of our app, as it showcases the interaction between our two databases, TMDB and MySQL's streaming_service database along with the frontend's search input. As a result, the diagram explains how movie information about the movie and streaming availability are retrieved and displayed on the frontend UI. By specifically focusing on the appearance of the "STREAM" badge, the sequence diagram shows the logic of how our app finds matching movies with your streaming service. By retrieving the selectedServices from selected_services database and retrieving the TMDB's providers, it enters a loop for every movie result, creating a PosterCard to display on the screen. For every movie, it compares the user's selectedServices and TMDB's providers if there is at least one common service/provider. And if so, it adds a "STREAM" badge on the PosterCard. This comparison between the two data sources and the entire sequence in general demonstrates the main aspect of our project, as this functionality of finding whether new media or old media you saved is available for you to stream is a core feature that is utilized in other pages.
+
 ## Run Tests
 
 The project includes end-to-end tests using [Playwright](https://playwright.dev/) that cover adding to backlog, marking as watched, removing from backlog, and backlog recommendations.
