@@ -24,8 +24,13 @@ function filterMovies(movies, nameQuery, genreQuery) {
   }
   return result;
 }
-
-export default function MovieCarousel({ title, movies, getActions, emptyMessage, showStreamingToggle = false }) {
+/**
+ * This component renders a carousel of movies with sorting, filtering, and streaming availability options.
+ * It uses the hasSelectedStreamingService function to filter movies based on the user's selected streaming
+ * services when the "Available to Stream" toggle is activated. The component also handles empty states and
+ * allows users to expand the carousel into a grid view.
+ */
+export default function MovieCarousel({ title, movies, getActions, emptyMessage, showStreamingToggle = false }) {''
   const rowRef = useRef(null);
   const [expanded, setExpanded]       = useState(false);
   const [sortOrder, setSortOrder]     = useState('oldest');
@@ -36,14 +41,26 @@ export default function MovieCarousel({ title, movies, getActions, emptyMessage,
   function scrollCarousel(direction) {
     rowRef.current?.scrollBy({ left: direction * 700, behavior: 'smooth' });
   }
-
+/**
+ * If streamingOnly is true, we filter the movies to only include those that have a streaming provider matching the user's selected services
+ *  This is done using the hasSelectedStreamingService function from checkAvailability.js. If streamingOnly is false, we keep all movies in the list.
+ */
   const streamingFiltered = streamingOnly
     ? movies.filter((m) => hasSelectedStreamingService(m))
     : movies;
+  
+  /**
+   * We first apply the streaming filter (if active), then sort the movies based on the selected sort order,
+   * and finally apply the name and genre filters. This ensures that all filters and sorting options work
+   * together correctly to determine which movies are visible in the carousel.
+   */
   const visibleMovies = filterMovies(sortMovies(streamingFiltered, sortOrder), nameQuery, genreQuery);
   const hasFilters = Boolean(nameQuery.trim() || genreQuery.trim());
   const isEmpty = visibleMovies.length === 0;
   const fallbackMessage = emptyMessage || 'No titles here yet.';
+  /**
+   * We determine the appropriate empty state message based on whether there are any movies at all and whether the streaming filter is active.
+   */
   let emptyStateMessage;
   if (movies.length === 0) {
     emptyStateMessage = fallbackMessage;
@@ -53,6 +70,9 @@ export default function MovieCarousel({ title, movies, getActions, emptyMessage,
     emptyStateMessage = 'No titles match those filters.';
   }
 
+  /**
+   * Common css styles for the select and input controls, defined in a variable to avoid repetition.
+   */
   const controlClass =
     'bg-transparent text-[#ede4c5] border-[3px] border-black box-border font-bold font-[Saira] text-sm px-[14px] py-[8px] outline-none';
 
@@ -123,6 +143,9 @@ export default function MovieCarousel({ title, movies, getActions, emptyMessage,
               {hasFilters && <span>Try a different title or genre.</span>}
             </div>
           ) : (
+            /**
+             * We map over the visibleMovies array to render a PosterCard for each movie.
+             */
             visibleMovies.map((movie) => (
               <div key={movie.id} className={expanded ? '' : 'flex-none w-[170px]'}>
                 <PosterCard
